@@ -1,0 +1,123 @@
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'config'
+    metrics_path : '/actuator/prometheus'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8077']
+    
+  - job_name: 'jwt'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8090']
+
+  - job_name: 'userregistration'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8096'] 
+
+  - job_name: 'eureka'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8010'] 
+
+  - job_name: 'api'
+
+    metrics_path : '/actuator/prometheus'
+    scheme: https
+    tls_config:
+     insecure_skip_verify: true
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8095']
+
+  - job_name: 'monitoring'
+
+    metrics_path : '/actuator/prometheus'
+    scheme: https
+    tls_config:
+     insecure_skip_verify: true
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8018']
+
+  - job_name: 'datacollector'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8001']
+
+  - job_name: 'appregistration'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8069'] 
+
+  - job_name: 'processorservice'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8033']
+
+  - job_name: 'alertservice'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8020']
+
+  - job_name: 'threshold'
+
+    metrics_path : '/actuator/prometheus'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['10.20.1.179:8044']                      
